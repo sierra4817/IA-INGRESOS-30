@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Ingresos 30 — El sistema para convertir IA en un activo vendible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#0a0b0e;
+    --bg-panel:rgba(22,24,31,0.55);
+    --bg-panel-solid:#15171f;
+    --line:#23262e;
+    --gold-hi:#f3d98b;
+    --gold-mid:#caa14f;
+    --gold-low:#7c5e2a;
+    --ink:#eae6da;
+    --ink-muted:#8b8f9a;
+    --ink-dim:#5c6070;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 600px at 50% -10%, rgba(202,161,79,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 30%, rgba(202,161,79,0.05), transparent 60%),
+      var(--bg-void);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .eyebrow{
+    font-family:'Outfit',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.35em;
+    font-size:0.72rem;
+    color:var(--ink-dim);
+    font-weight:500;
+  }
+  h1,h2,h3{font-family:'Outfit',sans-serif; font-weight:700; color:var(--ink);}
+  a{color:inherit;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    max-width:1100px; margin:0 auto; padding:2rem 1.5rem 0;
+  }
+  .brand{font-family:'Outfit',sans-serif; font-weight:600; letter-spacing:0.08em; font-size:1rem;}
+  .brand span{color:var(--gold-mid);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:1100px; margin:0 auto; padding:5rem 1.5rem 4rem;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:4rem; align-items:center;
+  }
+  .hero h1{font-size:clamp(2.3rem,4.6vw,3.6rem); line-height:1.08; margin:1.1rem 0 1.4rem; letter-spacing:-0.01em;}
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(120deg,var(--gold-hi),var(--gold-mid) 60%,var(--gold-low));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{color:var(--ink-muted); font-size:1.08rem; max-width:44ch; margin-bottom:2rem;}
+  .thesis{
+    font-family:'Outfit',sans-serif; font-size:1rem; color:var(--gold-mid);
+    border-left:2px solid var(--gold-low); padding-left:1rem; margin-bottom:2rem; max-width:38ch;
+  }
+
+  /* Capture card */
+  .capture{
+    background:var(--bg-panel);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:2.2rem 2rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .capture::before{
+    content:""; position:absolute; inset:0; padding:1px; border-radius:18px;
+    background:linear-gradient(140deg, rgba(243,217,139,0.35), transparent 40%, rgba(243,217,139,0.08));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    pointer-events:none;
+  }
+  .capture .eyebrow{margin-bottom:0.6rem;}
+  .capture h3{font-size:1.3rem; margin-bottom:0.6rem; line-height:1.3;}
+  .capture p{color:var(--ink-muted); font-size:0.92rem; margin-bottom:1.4rem;}
+  .capture ul{list-style:none; margin-bottom:1.6rem;}
+  .capture li{
+    display:flex; gap:0.6rem; font-size:0.88rem; color:var(--ink); margin-bottom:0.6rem; align-items:flex-start;
+  }
+  .capture li::before{content:"—"; color:var(--gold-mid); flex-shrink:0;}
+
+  form.capture-form{display:flex; flex-direction:column; gap:0.7rem;}
+  input[type=email]{
+    background:#0d0e13; border:1px solid var(--line); color:var(--ink);
+    padding:0.85rem 1rem; border-radius:10px; font-family:'Inter',sans-serif; font-size:0.95rem;
+    outline:none; transition:border-color .2s;
+  }
+  input[type=email]:focus{border-color:var(--gold-mid);}
+  input[type=email]::placeholder{color:var(--ink-dim);}
+  button.cta{
+    background:linear-gradient(120deg,var(--gold-hi),var(--gold-mid));
+    color:#151208; border:none; font-family:'Outfit',sans-serif; font-weight:700;
+    padding:0.9rem 1rem; border-radius:10px; font-size:0.95rem; letter-spacing:0.02em;
+    cursor:pointer; transition:transform .15s, filter .15s;
+  }
+  button.cta:hover{transform:translateY(-1px); filter:brightness(1.06);}
+  button.cta:focus-visible{outline:2px solid var(--gold-hi); outline-offset:2px;}
+  .fineprint{font-size:0.72rem; color:var(--ink-dim); margin-top:0.8rem;}
+  .form-msg{font-size:0.85rem; margin-top:0.6rem; display:none;}
+  .form-msg.ok{color:var(--gold-hi);}
+  .form-msg.err{color:#e08a8a;}
+
+  /* ---------- 5D DEVICE ---------- */
+  .method{max-width:1100px; margin:0 auto; padding:3rem 1.5rem 5rem; text-align:center;}
+  .method .eyebrow{justify-content:center; display:flex; margin-bottom:0.6rem;}
+  .method h2{font-size:clamp(1.6rem,3vw,2.2rem); margin-bottom:0.8rem;}
+  .method p.sub{color:var(--ink-muted); max-width:52ch; margin:0 auto 3rem;}
+  .ring-wrap{display:flex; justify-content:center;}
+  .steps{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:1.2rem; max-width:980px; margin:3rem auto 0;
+  }
+  .step{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:14px; padding:1.4rem 1rem;
+  }
+  .step .num{font-family:'Outfit',sans-serif; color:var(--ink-dim); font-size:0.72rem; letter-spacing:0.2em;}
+  .step h4{font-size:1rem; color:var(--gold-hi); margin:0.4rem 0 0.4rem;}
+  .step p{font-size:0.8rem; color:var(--ink-muted); line-height:1.5;}
+
+  @media (max-width:820px){
+    .steps{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* ---------- WHAT'S NOT PROMISED ---------- */
+  .honest{max-width:760px; margin:0 auto; padding:2rem 1.5rem 5rem;}
+  .honest-card{
+    border:1px solid var(--line); border-radius:14px; padding:2rem; background:var(--bg-panel-solid);
+  }
+  .honest-card h3{font-size:1.05rem; margin-bottom:1rem; color:var(--ink);}
+  .honest-card ul{list-style:none; display:grid; gap:0.55rem;}
+  .honest-card li{font-size:0.88rem; color:var(--ink-muted); display:flex; gap:0.6rem;}
+  .honest-card li::before{content:"✕"; color:var(--ink-dim); flex-shrink:0; font-size:0.75rem; margin-top:0.2rem;}
+
+  footer{
+    border-top:1px solid var(--line); padding:2.5rem 1.5rem; text-align:center;
+    color:var(--ink-dim); font-size:0.78rem;
+  }
+  footer a{color:var(--gold-mid); text-decoration:none;}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr; padding-top:3rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">IA <span>Ingresos 30</span></div>
+  <div class="eyebrow">Método 5D</div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">El sistema, no la herramienta</div>
+    <h1>La IA no es el negocio.<br><em>El negocio es el sistema</em> que construyes con ella.</h1>
+    <p class="lead">Un método de 25 capítulos y un proyecto de 30 días para convertir un problema real en un activo digital vendible — sin promesas de dinero fácil.</p>
+    <div class="thesis">"La IA acelera. El criterio decide."</div>
+  </div>
+
+  <div class="capture">
+    <div class="eyebrow">Gratis</div>
+    <h3>Empieza con el Capítulo 1 + la plantilla Mapa del Problema</h3>
+    <p>El primer paso del Método 5D, listo para aplicar hoy — sin esperar a terminar el libro.</p>
+    <ul>
+      <li>Capítulo 1 completo del libro</li>
+      <li>Plantilla rellenable "Mapa del Problema"</li>
+      <li>Entrega inmediata por email</li>
+    </ul>
+    <form class="capture-form" id="leadForm">
+      <input type="email" name="email" id="email" placeholder="tu@email.com" required>
+      <button type="submit" class="cta">Recibir el Capítulo 1 gratis</button>
+      <p class="form-msg" id="formMsg"></p>
+    </form>
+    <p class="fineprint">Sin spam. Puedes darte de baja cuando quieras.</p>
+  </div>
+</section>
+
+<section class="method">
+  <div class="eyebrow">La columna vertebral del libro</div>
+  <h2>El Método 5D</h2>
+  <p class="sub">Cinco fases, un ciclo que se repite: encuentras el problema, diseñas la oferta, construyes con IA como multiplicador, distribuyes para conseguir atención, y optimizas con datos reales.</p>
+
+  <div class="ring-wrap">
+    <svg width="380" height="380" viewBox="0 0 380 380">
+      <defs>
+        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f3d98b"/>
+          <stop offset="100%" stop-color="#8a6a2e"/>
+        </linearGradient>
+      </defs>
+      <circle cx="190" cy="190" r="150" fill="none" stroke="#23262e" stroke-width="1"/>
+      <circle cx="190" cy="190" r="112" fill="none" stroke="url(#g)" stroke-width="1.5" opacity="0.55"/>
+      <circle cx="190" cy="190" r="58" fill="#15171f" stroke="url(#g)" stroke-width="1.5"/>
+      <text x="190" y="185" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#8b8f9a" letter-spacing="1">MÉTODO</text>
+      <text x="190" y="205" text-anchor="middle" font-family="Outfit,sans-serif" font-size="20" font-weight="700" fill="#f3d98b" letter-spacing="2">5D</text>
+
+      <g font-family="Outfit,sans-serif" font-size="13" font-weight="600" fill="#caa14f" text-anchor="middle">
+        <text x="190" y="55">ENCONTRAR</text>
+        <text x="330" y="150">DISEÑAR</text>
+        <text x="290" y="335">CONSTRUIR</text>
+        <text x="90" y="335">DISTRIBUIR</text>
+        <text x="50" y="150">OPTIMIZAR</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="num">01</div><h4>Encontrar</h4><p>Un problema real, con evidencia de que alguien ya paga por resolverlo.</p></div>
+    <div class="step"><div class="num">02</div><h4>Diseñar</h4><p>La promesa, la oferta y la estructura mínima viable.</p></div>
+    <div class="step"><div class="num">03</div><h4>Construir</h4><p>IA como multiplicador, con revisión humana en cada salida.</p></div>
+    <div class="step"><div class="num">04</div><h4>Distribuir</h4><p>Contenido que demuestra el método y atrae a quien tiene el problema.</p></div>
+    <div class="step"><div class="num">05</div><h4>Optimizar</h4><p>Métricas que orientan, no que se persiguen a ciegas.</p></div>
+  </div>
+</section>
+
+<section class="honest">
+  <div class="honest-card">
+    <h3>Lo que este sistema no promete</h3>
+    <ul>
+      <li>No promete una cifra concreta de ingresos mensuales.</li>
+      <li>No garantiza ventas ni viralidad.</li>
+      <li>No sustituye tu experiencia en el problema que decidas resolver.</li>
+      <li>No elimina la necesidad de vender — reduce la fricción, no la sustituye.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  © 2026 Albert Sierra · IA Ingresos 30 forma parte del ecosistema Capital Invisible.<br>
+  Este sistema no constituye asesoramiento financiero, legal o fiscal.
+</footer>
+
+<script>
+document.getElementById('leadForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const msg = document.getElementById('formMsg');
+  const btn = e.target.querySelector('button');
+
+  // TODO: sustituir por el endpoint real del formulario MailerLite
+  // (mismo patrón que capitalinvisible.online: submit AJAX -> redirect a /gracias.html)
+  const MAILERLITE_FORM_ACTION = "https://assets.mailerlite.com/jsonp/XXXXXX/forms/XXXXXXXXXXXXXXXXXX/subscribe";
+
+  btn.disabled = true;
+  btn.textContent = "Enviando…";
+
+  try{
+    // Sustituir este bloque por la llamada real a MailerLite cuando se conecte la cuenta.
+    // await fetch(MAILERLITE_FORM_ACTION, { method:'POST', body: new FormData(e.target) });
+    window.location.href = "gracias.html?email=" + encodeURIComponent(email);
+  }catch(err){
+    msg.textContent = "Algo ha fallado. Inténtalo de nuevo en un momento.";
+    msg.className = "form-msg err";
+    msg.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Recibir el Capítulo 1 gratis";
+  }
+});
+</script>
+
+</body>
+</html>

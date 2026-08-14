@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aquí tienes tu Capítulo 1 — IA Ingresos 30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void:#0a0b0e; --bg-panel:rgba(22,24,31,0.55); --line:#23262e;
+    --gold-hi:#f3d98b; --gold-mid:#caa14f; --ink:#eae6da; --ink-muted:#8b8f9a; --ink-dim:#5c6070;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:radial-gradient(ellipse 900px 600px at 50% -10%, rgba(202,161,79,0.10), transparent 60%), var(--bg-void);
+    color:var(--ink); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh;
+    display:flex; align-items:center; justify-content:center; padding:2rem 1.5rem;
+  }
+  h1,h2{font-family:'Outfit',sans-serif; font-weight:700;}
+  .card{max-width:600px; width:100%; text-align:center;}
+  .check{
+    width:64px; height:64px; border-radius:50%; margin:0 auto 1.6rem;
+    background:linear-gradient(120deg,var(--gold-hi),var(--gold-mid));
+    display:flex; align-items:center; justify-content:center;
+    color:#151208; font-size:1.6rem; font-weight:700;
+  }
+  .eyebrow{font-family:'Outfit',sans-serif; text-transform:uppercase; letter-spacing:0.3em; font-size:0.7rem; color:var(--ink-dim); margin-bottom:0.8rem;}
+  h1{font-size:clamp(1.6rem,3.4vw,2.1rem); margin-bottom:1rem;}
+  p.lead{color:var(--ink-muted); margin-bottom:2.4rem;}
+  .downloads{display:grid; gap:1rem; margin-bottom:2.4rem;}
+  .dl{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:14px; padding:1.2rem 1.4rem;
+    text-decoration:none; color:var(--ink); text-align:left; transition:border-color .15s;
+  }
+  .dl:hover{border-color:var(--gold-mid);}
+  .dl-title{font-family:'Outfit',sans-serif; font-weight:600; font-size:0.98rem;}
+  .dl-sub{font-size:0.8rem; color:var(--ink-muted); margin-top:0.2rem;}
+  .dl-arrow{color:var(--gold-mid); font-size:1.2rem; flex-shrink:0;}
+  .next{
+    border:1px solid var(--line); border-radius:14px; padding:1.6rem; text-align:left; background:rgba(255,255,255,0.02);
+  }
+  .next .eyebrow{margin-bottom:0.6rem;}
+  .next p{color:var(--ink-muted); font-size:0.92rem; margin-bottom:1.2rem;}
+  .cta{
+    display:inline-block; background:linear-gradient(120deg,var(--gold-hi),var(--gold-mid));
+    color:#151208; font-family:'Outfit',sans-serif; font-weight:700; text-decoration:none;
+    padding:0.85rem 1.6rem; border-radius:10px; font-size:0.92rem;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">✓</div>
+    <div class="eyebrow">Revisa tu email</div>
+    <h1>Ya está en camino. Mientras llega, descárgalo aquí directamente.</h1>
+    <p class="lead">Capítulo 1 completo y la plantilla Mapa del Problema, listos para usar hoy.</p>
+
+    <div class="downloads">
+      <a class="dl" href="#" download>
+        <div>
+          <div class="dl-title">Capítulo 1 — La IA no es el negocio</div>
+          <div class="dl-sub">PDF · lectura de 8 minutos</div>
+        </div>
+        <span class="dl-arrow">↓</span>
+      </a>
+      <a class="dl" href="#" download>
+        <div>
+          <div class="dl-title">Plantilla — Mapa del Problema</div>
+          <div class="dl-sub">PDF rellenable</div>
+        </div>
+        <span class="dl-arrow">↓</span>
+      </a>
+    </div>
+
+    <div class="next">
+      <div class="eyebrow">Qué sigue</div>
+      <p>En los próximos días recibirás dos emails más: un caso aplicado del método, y la presentación del sistema completo — el libro, el workbook de 15 plantillas y el Proyecto 30 día a día.</p>
+      <a class="cta" href="venta.html">Ver el sistema completo →</a>
+    </div>
+  </div>
+</body>
+</html>
